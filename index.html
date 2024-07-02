@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diablo 4 Event Timers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Diablo 4 Event Timers</h1>
+            <div class="columns">
+                <div class="column">
+                    <div class="box">
+                        <h2 class="title is-4">Helltide</h2>
+                        <p id="helltide-timer">Loading...</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <h2 class="title is-4">World Boss</h2>
+                        <p id="worldboss-timer">Loading...</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <h2 class="title is-4">Legion</h2>
+                        <p id="legion-timer">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        async function fetchEventTimers() {
+            try {
+                const response = await fetch('https://d4et.vercel.app/api/events');
+                const data = await response.json();
+                document.getElementById('helltide-timer').innerText = data.helltide;
+                document.getElementById('worldboss-timer').innerText = data.worldboss;
+                document.getElementById('legion-timer').innerText = data.legion;
+            } catch (error) {
+                console.error('Error fetching event timers:', error);
+            }
+        }
+
+        fetchEventTimers();
+        setInterval(fetchEventTimers, 60000); // Refresh every 60 seconds
+    </script>
+</body>
+
+</html>
