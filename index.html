@@ -4,36 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diablo 4 Event Timers</title>
-    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    <title>D4T Map Timers</title>
+    <!-- Include Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title">Diablo 4 Event Timers</h1>
-            <div class="columns">
-                <div class="column">
-                    <div class="box">
-                        <h2 class="title is-4">Helltide</h2>
-                        <p id="text-xl xl:text-[1.35rem] font-mono mb-2">Loading...</p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="box">
-                        <h2 class="title is-4">World Boss</h2>
-                        <p id="text-xl xl:text-[1.35rem] text-center font-mono mb-2">Loading...</p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="box">
-                        <h2 class="title is-4">Legion</h2>
-                        <p id="text-xl xl:text-[1.35rem] text-center font-mono mb-2">Loading...</p>
-                    </div>
-                </div>
-            </div>
+            <h1 class="title">D4T Map Timers</h1>
+            <ul id="mapTimersList" class="d4t-MapTimers">
+                <!-- List items will be dynamically added here -->
+            </ul>
         </div>
     </section>
+
+    <!-- Include JavaScript -->
     <script src="events.js"></script>
 </body>
 
