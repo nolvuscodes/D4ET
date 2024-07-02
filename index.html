@@ -34,39 +34,9 @@
             </div>
         </div>
     </section>
-    <script>
-        function startCountdown(id, duration) {
-            const element = document.getElementById(id);
-            let time = duration, hours, minutes, seconds;
 
-            const countdownInterval = setInterval(() => {
-                hours = parseInt(time / 3600, 10);
-                minutes = parseInt((time % 3600) / 60, 10);
-                seconds = parseInt(time % 60, 10);
+    <script src="script.js"></script>
 
-                hours = hours < 10 ? "0" + hours : hours;
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                element.textContent = `${hours}:${minutes}:${seconds}`;
-
-                if (--time < 0) {
-                    clearInterval(countdownInterval);
-                }
-            }, 1000);
-        }
-
-        // Initial countdown times in seconds
-        const helltideDuration = 16 * 60; // 16 minutes
-        const worldbossDuration = 2 * 3600 + 5 * 60 + 16; // 2 hours, 5 minutes, 16 seconds
-
-        // Start countdown timers
-        startCountdown('helltide-timer', helltideDuration);
-        startCountdown('worldboss-timer', worldbossDuration);
-
-        // Placeholder for Legion, as the time is unspecified
-        document.getElementById('legion-timer').textContent = "Unspecified";
-    </script>
 </body>
 
 </html>
