@@ -6,10 +6,10 @@ module.exports = async (req, res) => {
         const { data } = await axios.get('https://mobalytics.gg/diablo-4/interactive-map');
         const $ = cheerio.load(data);
 
-        // Example selectors, update these according to the actual structure of the page
-        const helltideTimer = $('#helltide-timer').text();
-        const worldbossTimer = $('#worldboss-timer').text();
-        const legionTimer = $('#legion-timer').text();
+        // Update these selectors to match the actual structure of the Mobalytics page
+        const helltideTimer = $('selector-for-helltide-timer').text();
+        const worldbossTimer = $('selector-for-worldboss-timer').text();
+        const legionTimer = $('selector-for-legion-timer').text();
 
         res.status(200).json({
             helltide: helltideTimer,
