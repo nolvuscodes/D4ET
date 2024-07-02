@@ -35,18 +35,38 @@
         </div>
     </section>
     <script>
-        async function fetchEventTimers() {
-            try {
-                const response = await fetch('https://d4et.vercel.app/api/events');
-                const data = await response.json();
-                console.log(data); // Debugging line to check the response
-                document.getElementById('helltide-timer').innerText = data.helltide;
-                document.getElementById('worldboss-timer').innerText = data.worldboss;
-                document.getElementById('legion-timer').innerText = data.legion;
-            } catch (error) {
-                console.error('Error fetching event timers:', error);
-            }
+        function startCountdown(id, duration) {
+            const element = document.getElementById(id);
+            let time = duration, hours, minutes, seconds;
+
+            const countdownInterval = setInterval(() => {
+                hours = parseInt(time / 3600, 10);
+                minutes = parseInt((time % 3600) / 60, 10);
+                seconds = parseInt(time % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                element.textContent = `${hours}:${minutes}:${seconds}`;
+
+                if (--time < 0) {
+                    clearInterval(countdownInterval);
+                }
+            }, 1000);
         }
 
-        fetchEventTimers();
-    
+        // Initial countdown times in seconds
+        const helltideDuration = 16 * 60; // 16 minutes
+        const worldbossDuration = 2 * 3600 + 5 * 60 + 16; // 2 hours, 5 minutes, 16 seconds
+
+        // Start countdown timers
+        startCountdown('helltide-timer', helltideDuration);
+        startCountdown('worldboss-timer', worldbossDuration);
+
+        // Placeholder for Legion, as the time is unspecified
+        document.getElementById('legion-timer').textContent = "Unspecified";
+    </script>
+</body>
+
+</html>
