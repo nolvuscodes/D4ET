@@ -7,9 +7,9 @@ module.exports = async (req, res) => {
         const $ = cheerio.load(data);
 
         // Update these selectors to match the actual structure of the Mobalytics page
-        const helltideTimer = $('selector-for-helltide-timer').text();
-        const worldbossTimer = $('selector-for-worldboss-timer').text();
-        const legionTimer = $('selector-for-legion-timer').text();
+        const helltideTimer = $('.m-1ecy270 .m-9kkwtd').first().find('.m-vfzgit span').text().trim();
+        const worldbossTimer = $('.m-1ecy270 .m-9kkwtd').eq(1).find('.m-vfzgit span').text().trim();
+        const legionTimer = $('.m-1ecy270 .m-9kkwtd').last().find('.m-vfzgit span').text().trim();
 
         res.status(200).json({
             helltide: helltideTimer,
