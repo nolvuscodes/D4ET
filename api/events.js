@@ -26,16 +26,37 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
 
         // Update every 30 seconds (or as needed) to keep it in sync with the remote data
-        setInterval(updateMapTimers, 30000); // 30 seconds
+        setInterval(async () => {
+            try {
+                const updatedResponse = await fetch(url);
+                if (!updatedResponse.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const updatedHtml = await updatedResponse.text();
+                const updatedDoc = parser.parseFromString(updatedHtml, 'text/html');
+
+                // Find the updated ul element with class d4t-MapTimers
+                const updatedMapTimersList = updatedDoc.querySelector('ul.d4t-MapTimers');
+
+                // Get all updated li elements within the ul
+                const updatedMapTimerItems = updatedMapTimersList.querySelectorAll('li');
+
+                // Clear existing list items
+                ulElement.innerHTML = '';
+
+                // Append each updated li element to the ul in our HTML
+                updatedMapTimerItems.forEach(item => {
+                    ulElement.appendChild(item.cloneNode(true));
+                });
+
+                console.log('Map timers updated successfully.');
+
+            } catch (error) {
+                console.error('Error fetching updated map timers:', error);
+            }
+        }, 30000); // 30 seconds
 
     } catch (error) {
         console.error('Error fetching map timers:', error);
     }
 });
-
-function updateMapTimers() {
-    // Function to update the map timers list periodically
-    // Fetch and update the list as shown above
-    console.log('Updating map timers...');
-    // Repeat the fetching and updating logic here
-}
