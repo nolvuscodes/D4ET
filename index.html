@@ -4,89 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D4T Map Timers</title>
-    <!-- Include Bulma CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <title>Diablo 4 Event Timers</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">D4T Map Timers</h1>
-            <ul id="mapTimersList" class="d4t-MapTimers">
-                <!-- List items will be dynamically added here -->
-            </ul>
-        </div>
-    </section>
-
-    <!-- Include JavaScript -->
-    <script>
-
-        document.addEventListener('DOMContentLoaded', async function () {
-            const url = 'https://maxroll.gg/d4/map-tool';
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const html = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-
-                // Find the ul element with class d4t-MapTimers
-                const mapTimersList = doc.querySelector('ul.d4t-MapTimers');
-
-                // Get all li elements within the ul
-                const mapTimerItems = mapTimersList.querySelectorAll('li');
-
-                // Clear existing list items
-                const ulElement = document.getElementById('mapTimersList');
-                ulElement.innerHTML = '';
-
-                // Append each li element to the ul in our HTML
-                mapTimerItems.forEach(item => {
-                    ulElement.appendChild(item.cloneNode(true));
-                });
-
-                // Update every 30 seconds (or as needed) to keep it in sync with the remote data
-                setInterval(async () => {
-                    try {
-                        const updatedResponse = await fetch(url);
-                        if (!updatedResponse.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        const updatedHtml = await updatedResponse.text();
-                        const updatedDoc = parser.parseFromString(updatedHtml, 'text/html');
-
-                        // Find the updated ul element with class d4t-MapTimers
-                        const updatedMapTimersList = updatedDoc.querySelector('ul.d4t-MapTimers');
-
-                        // Get all updated li elements within the ul
-                        const updatedMapTimerItems = updatedMapTimersList.querySelectorAll('li');
-
-                        // Clear existing list items
-                        ulElement.innerHTML = '';
-
-                        // Append each updated li element to the ul in our HTML
-                        updatedMapTimerItems.forEach(item => {
-                            ulElement.appendChild(item.cloneNode(true));
-                        });
-
-                        console.log('Map timers updated successfully.');
-
-                    } catch (error) {
-                        console.error('Error fetching updated map timers:', error);
-                    }
-                }, 30000); // 30 seconds
-
-            } catch (error) {
-                console.error('Error fetching map timers:', error);
-            }
-        });
-
-
-    </script>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+    <div id="event-timers" class="text-center">
+        <!-- Timers will be injected here -->
+    </div>
+    <script src="app.js"></script>
 </body>
 
 </html>
