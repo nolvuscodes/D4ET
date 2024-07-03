@@ -1,12 +1,29 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const eventTimersContainer = document.getElementById('event-timers');
 
-    // Function to fetch data from helltides.com
+    // Function to fetch data from helltides.com and parse the HTML
     async function fetchEventData() {
+        const cachedData = localStorage.getItem('eventData');
+        if (cachedData) {
+            return JSON.parse(cachedData);
+        }
+
         try {
-            const response = await fetch('https://helltides.com/schedule'); // Update with the correct URL or API endpoint
-            const data = await response.json();
-            return data;
+            const response = await fetch('https://helltides.com/schedule');
+            const text = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+
+            const eventElements = doc.querySelectorAll('ul > li');
+            const events = Array.from(eventElements).map(eventElement => {
+                const [dateSpan, nameSpan] = eventElement.querySelectorAll('span');
+                const dateTime = dateSpan.textContent.trim();
+                const name = nameSpan.textContent.trim();
+                return { time: dateTime, name };
+            });
+
+            localStorage.setItem('eventData', JSON.stringify(events));
+            return events;
         } catch (error) {
             console.error('Error fetching event data:', error);
             return null;
